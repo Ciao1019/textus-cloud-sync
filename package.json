@@ -1,0 +1,33 @@
+{
+  "name": "textus-cloud-sync",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs && node scripts/package.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "check": "npm run typecheck && npm test && node scripts/build.mjs --check && npm run package",
+    "test:e2e": "playwright test",
+    "package": "node scripts/package.mjs"
+  },
+  "dependencies": {
+    "aws4fetch": "1.0.20"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.1",
+    "@types/node": "^22.0.0",
+    "esbuild": "^0.25.11",
+    "jszip": "3.10.2",
+    "typescript": "~5.9.3",
+    "vitest": "^4.1.12"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ciao1019/textus-cloud-sync.git"
+  },
+  "license": "MIT"
+}

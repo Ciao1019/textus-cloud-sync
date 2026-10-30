@@ -1,0 +1,28 @@
+
+> textus-cloud-sync@0.2.0 check
+> npm run typecheck && npm test && node scripts/build.mjs --check && npm run package
+
+
+> textus-cloud-sync@0.2.0 typecheck
+> tsc --noEmit
+
+
+> textus-cloud-sync@0.2.0 test
+> vitest run
+
+
+ RUN  v4.1.12 <plugin-repo>
+
+
+ Test Files  7 passed (7)
+      Tests  82 passed (82)
+   Start at  11:26:16
+   Duration  1.66s (transform 269ms, setup 0ms, import 429ms, tests 2.93s, environment 2ms)
+
+Verified 5 readable runtime files.
+
+> textus-cloud-sync@0.2.0 package
+> node scripts/package.mjs
+
+c83968d80043a074e21c0cdf1261b64f712ed88c2d9dbe2c117d5f1f0f02843e  dist/ciao1019.cloud-sync-0.2.0.zip
+9 files, 37099 bytes.

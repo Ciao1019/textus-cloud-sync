@@ -1,0 +1,150 @@
+main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: var(--space-5, 20px);
+}
+h1 {
+  margin: 0;
+  font-size: var(--text-xl, 20px);
+  font-weight: 600;
+}
+h2 {
+  font-size: var(--text-md, 14px);
+  margin: 0 0 var(--space-2, 8px);
+}
+p {
+  margin: var(--space-2, 8px) 0;
+  overflow-wrap: anywhere;
+}
+header {
+  margin-bottom: var(--space-5, 20px);
+}
+.root {
+  font-size: var(--text-sm, 12px);
+  color: var(--chrome-muted);
+}
+.sync-status {
+  border-block: 1px solid var(--border-color);
+  padding: var(--space-4, 16px) 0;
+  margin-bottom: var(--space-5, 20px);
+}
+#status {
+  margin-top: 0;
+}
+#status[data-error="true"] {
+  border-left: 3px solid var(--chrome-accent);
+  padding-left: var(--space-3, 12px);
+}
+progress {
+  width: 100%;
+  height: 6px;
+  accent-color: var(--chrome-accent);
+}
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1, 4px);
+  margin-bottom: var(--space-4, 16px);
+  min-width: 0;
+}
+label {
+  font-size: var(--text-sm, 12px);
+  font-weight: 500;
+}
+input:not([type="checkbox"]),
+select {
+  width: 100%;
+  min-height: 34px;
+}
+.columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 var(--space-4, 16px);
+}
+.wide {
+  grid-column: 1 / -1;
+}
+.hint,
+.scope p,
+#last-run {
+  font-size: var(--text-sm, 12px);
+  color: var(--chrome-muted);
+}
+.hint {
+  margin-top: 0;
+}
+.check {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 8px);
+  margin-bottom: var(--space-4, 16px);
+}
+.check input {
+  flex: 0 0 auto;
+  accent-color: var(--chrome-accent);
+}
+.automatic {
+  margin-top: var(--space-5, 20px);
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2, 8px);
+  margin-top: var(--space-3, 12px);
+}
+.actions button,
+details button {
+  min-height: 34px;
+}
+.scope {
+  margin-top: var(--space-5, 20px);
+  padding-top: var(--space-4, 16px);
+  border-top: 1px solid var(--border-color);
+}
+details {
+  margin-top: var(--space-4, 16px);
+  padding-bottom: var(--space-4, 16px);
+}
+summary {
+  cursor: pointer;
+  font-size: var(--text-sm, 12px);
+  margin-bottom: var(--space-2, 8px);
+}
+summary:focus-visible {
+  outline: 2px solid var(--chrome-accent);
+  outline-offset: 2px;
+}
+#results ul {
+  margin: var(--space-2, 8px) 0;
+  padding-left: var(--space-5, 20px);
+  overflow-wrap: anywhere;
+  font-size: var(--text-sm, 12px);
+}
+#results h2 {
+  margin-top: var(--space-4, 16px);
+}
+[hidden] {
+  display: none !important;
+}
+@media (max-width: 480px) {
+  main {
+    padding: var(--space-3, 12px);
+  }
+  .columns {
+    grid-template-columns: 1fr;
+  }
+  input:not([type="checkbox"]),
+  select {
+    font-size: 16px;
+    min-height: 40px;
+  }
+  .actions button {
+    min-height: 40px;
+  }
+}

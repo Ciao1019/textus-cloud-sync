@@ -1,0 +1,33 @@
+
+> textus-cloud-sync@0.2.0 test:e2e
+> playwright test
+
+[WebServer] (node:23375) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 18 tests using 1 worker
+
+(node:23409) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › tests/plugin.spec.ts:215:3 › s3: the packaged plugin saves secrets, connects, and syncs through Textus's sandbox (3.1s)
+  ✓   2 [chromium] › tests/plugin.spec.ts:215:3 › webdav: the packaged plugin saves secrets, connects, and syncs through Textus's sandbox (2.1s)
+  ✓   3 [chromium] › tests/plugin.spec.ts:215:3 › nutstore: the packaged plugin saves secrets, connects, and syncs through Textus's sandbox (2.1s)
+  ✓   4 [chromium] › tests/plugin.spec.ts:252:1 › two Textus devices exchange changes and preserve a concurrent edit as a conflict copy (4.1s)
+  ✓   5 [chromium] › tests/plugin.spec.ts:297:1 › configuration errors preserve input and Chinese UI fits narrow and dark views (2.0s)
+  ✓   6 [chromium] › tests/plugin.spec.ts:340:1 › automatic sync runs on its configured interval and Enter saves through the sandbox bridge (1.9s)
+  ✓   7 [chromium] › tests/plugin.spec.ts:358:1 › a wrong sync password leaves both devices unchanged, then the correct password decrypts (3.8s)
+  ✓   8 [chromium] › tests/plugin.spec.ts:404:1 › a tampered encrypted manifest never writes local documents (3.6s)
+  ✓   9 [chromium] › tests/plugin.spec.ts:437:1 › password confirmation errors retain input and an old plaintext directory is refused (1.7s)
+(node:24265) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  10 [webkit] › tests/plugin.spec.ts:215:3 › s3: the packaged plugin saves secrets, connects, and syncs through Textus's sandbox (3.0s)
+  ✓  11 [webkit] › tests/plugin.spec.ts:215:3 › webdav: the packaged plugin saves secrets, connects, and syncs through Textus's sandbox (2.5s)
+  ✓  12 [webkit] › tests/plugin.spec.ts:215:3 › nutstore: the packaged plugin saves secrets, connects, and syncs through Textus's sandbox (2.1s)
+  ✓  13 [webkit] › tests/plugin.spec.ts:252:1 › two Textus devices exchange changes and preserve a concurrent edit as a conflict copy (4.5s)
+  ✓  14 [webkit] › tests/plugin.spec.ts:297:1 › configuration errors preserve input and Chinese UI fits narrow and dark views (2.4s)
+  ✓  15 [webkit] › tests/plugin.spec.ts:340:1 › automatic sync runs on its configured interval and Enter saves through the sandbox bridge (5.8s)
+  ✓  16 [webkit] › tests/plugin.spec.ts:358:1 › a wrong sync password leaves both devices unchanged, then the correct password decrypts (4.4s)
+  ✓  17 [webkit] › tests/plugin.spec.ts:404:1 › a tampered encrypted manifest never writes local documents (4.1s)
+  ✓  18 [webkit] › tests/plugin.spec.ts:437:1 › password confirmation errors retain input and an old plaintext directory is refused (2.0s)
+
+  18 passed (57.4s)
