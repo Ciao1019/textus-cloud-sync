@@ -43,6 +43,8 @@ const manifest = {
   author: "Ciao1019",
   license: "MIT",
   engines: { textus: ">=1.3.0-beta.6" },
+  icon: "icon.svg",
+  platforms: ["desktop"],
   main: "host.js",
   permissions: ["files.read", "files.write", "network:*"],
   activationEvents: ["onStartupFinished"],

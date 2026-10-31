@@ -64,8 +64,8 @@ suite("workspace synchronization", () => {
   it("never overwrites a pre-existing conflict copy with unrelated contents", async () => {
     const remote = new MemoryStore();
     await new MemoryLocal({ "note.md": "remote" }).sync(remote);
-    const suffix = (await hash(bytes("remote"))).slice(0, 16);
-    const name = `Sync conflicts/note.remote-${suffix}.md`;
+    const suffix = (await hash(bytes("remote"))).slice(0, 8);
+    const name = `Sync conflicts/note (${suffix}).md`;
     const local = new MemoryLocal({ "note.md": "local", [name]: "keep" });
     const result = await local.sync(remote);
     expect(text(local.files.get(name))).toBe("keep");

@@ -1,42 +1,35 @@
 # Cloud Sync for Textus
 
-Sync a workspace between devices with end-to-end encryption through
-S3-compatible storage, WebDAV or Nutstore. The plugin runs inside Textus's sandbox and uses its file, secret
-and network APIs. Requires Textus 1.3.0-beta.6 or later.
+Keeps a folder the same on your computers through your own S3-compatible
+storage, WebDAV or Nutstore. Files are encrypted before they leave the device,
+so the service sees neither their contents nor their names.
 
-## Install
+## Getting started
 
-In **Settings › Extensions › Plugins › Install a plugin**, choose **Install
-from file…** and select `ciao1019.cloud-sync-0.2.0.zip` from the
-[release](https://github.com/Ciao1019/textus-cloud-sync/releases/tag/v0.2.0). For development,
-use **Load a plugin folder…** with `dist/ciao1019.cloud-sync/`.
+1. Open the folder to sync in Textus, then choose **Plugins › Cloud Sync**.
+2. Pick the storage service and enter its server address and sign-in. Nutstore
+   needs only your email and an app password from Account › Security.
+3. Set a **sync password** of at least 12 characters and keep it in your
+   password manager: it can't be reset.
+4. Choose **Save connection**, then **Sync now**.
 
-Enable the plugin and grant file read/write and network access.
-`files.read` scans saved workspace files; `files.write` applies downloads and
-creates conflict copies. `network:*` supports the HTTPS S3/WebDAV server you
-configure, including private deployments whose host cannot be known in advance.
-The plugin has no telemetry, remote code, analytics or self-updates. This broad
-network permission needs a maintainer decision under the market's current
-open-web-only listing policy; this release is not yet an approved market listing. Open a
-workspace folder, then choose **Plugins › Cloud Sync** or the plugin's
-settings page. Connection settings belong to that local workspace.
+On another device, open the matching folder and enter the same service, the
+same remote folder and the same sync password. Turn on **Sync automatically
+while Textus is open** to sync every few minutes.
 
-1. Choose a storage service. For S3, enter an HTTPS endpoint, region,
-   bucket and access keys. An empty endpoint uses AWS S3. Path-style
-   addressing defaults on for compatible services; temporary credentials
-   may include a session token.
-2. For WebDAV, enter the HTTPS service URL, account and application password.
-   Nutstore presets `https://dav.jianguoyun.com/dav`; use your email and an
-   application password created in Nutstore's account security settings.
-3. Choose a dedicated remote folder, for example `textus/personal-notes`.
-   Use that same folder on another device, and a different folder for each
-   workspace. It holds the plugin's storage format, not a plain file mirror.
-4. Enter and confirm an independent **Sync password** of at least 12 characters.
-   Use a long, unique passphrase, different from your storage credentials.
-   Enter the exact same password on every device; spaces and Unicode are preserved.
-   Keep a copy in a password manager. There is no password-reset recovery.
-5. Select **Save connection**, **Test connection**, then **Sync now**.
-   Automatic sync is optional, every 5 minutes by default while Textus is open.
+When both devices changed the same file, both versions stay: yours in place,
+the other device's in `Sync conflicts/`.
+
+**Permissions:** read and write the open folder (to scan it and apply what
+comes down), and reach any website (only the HTTPS server you enter). No
+telemetry, analytics, remote code or self-updates.
+
+## Details
+
+S3 takes a custom endpoint (empty means AWS), region, bucket, path-style or
+virtual-host addressing and an optional session token under **More options**.
+The remote folder holds the plugin's storage format, not a plain file mirror;
+use a different one for each workspace.
 
 Credentials are stored through `ctx.secrets`, separately from sync state.
 They are never sent back to the settings page or copied to the remote
@@ -171,7 +164,7 @@ plugin storage. After an interrupted write, the next sync resumes that exact
 marker instead of uploading it as file content. If another application changes
 the file, its content is preserved. Keep the plugin's local data when retrying.
 
-After a crash, **Recovery › Recover stale lock** removes the lock only after
+After a crash, **Sync stuck? › Recover stale lock** removes the lock only after
 confirmation. Check that all other devices have stopped syncing first.
 Locks never expire automatically, so a slow device cannot lose its write
 ownership just because a timer expired. If the descriptor or current manifest is
@@ -203,7 +196,7 @@ Commit those runtime files alongside changes to `src/`, `ui/` or `locales.json`.
 Release packaging has **no compilation step**: after committing and tagging
 `v0.2.0`, run `npm run package -- --verify-tag`. It compares all nine packaged
 files against the Git tag byte for byte and copies them into a deterministic ZIP.
-Publish that ZIP as `ciao1019.cloud-sync-0.2.0.zip`; never replace a published asset
+Publish that ZIP as `ciao1019.cloud-sync-<version>.zip`; never replace a published asset
 or move its tag. Bundled `aws4fetch` 1.0.20 source and licensing are recorded in
 `THIRD_PARTY_NOTICES.md`.
 

@@ -33,5 +33,6 @@ export function plan(
 export function conflictPath(path: string, hash: string): string {
   const safe = path.replace(/^\.textus\//, "Textus project/");
   const dot = safe.lastIndexOf(".");
-  return `Sync conflicts/${safe.slice(0, dot)}.remote-${hash.slice(0, 16)}${safe.slice(dot)}`;
+  const end = dot > safe.lastIndexOf("/") + 1 ? dot : safe.length;
+  return `Sync conflicts/${safe.slice(0, end)} (${hash.slice(0, 8)})${safe.slice(end)}`;
 }
