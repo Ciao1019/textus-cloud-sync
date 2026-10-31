@@ -103,8 +103,8 @@
     "secretNutstore": "App password",
     "doneUploaded": "uploaded {0}",
     "doneDownloaded": "downloaded {0}",
-    "doneConflicts": "{0} conflict copies kept",
-    "doneDeferred": "{0} waiting until closed",
+    "doneConflicts": "conflict copies {0}",
+    "doneDeferred": "waiting until closed {0}",
     "listSeparator": ", "
   },
   "zh": {

@@ -159,8 +159,8 @@
       "secretNutstore": "App password",
       "doneUploaded": "uploaded {0}",
       "doneDownloaded": "downloaded {0}",
-      "doneConflicts": "{0} conflict copies kept",
-      "doneDeferred": "{0} waiting until closed",
+      "doneConflicts": "conflict copies {0}",
+      "doneDeferred": "waiting until closed {0}",
       "listSeparator": ", "
     },
     "zh": {
@@ -375,8 +375,8 @@
       "secretNutstore": "App password",
       "doneUploaded": "uploaded {0}",
       "doneDownloaded": "downloaded {0}",
-      "doneConflicts": "{0} conflict copies kept",
-      "doneDeferred": "{0} waiting until closed",
+      "doneConflicts": "conflict copies {0}",
+      "doneDeferred": "waiting until closed {0}",
       "listSeparator": ", "
     },
     "ja": {
@@ -483,8 +483,8 @@
       "secretNutstore": "App password",
       "doneUploaded": "uploaded {0}",
       "doneDownloaded": "downloaded {0}",
-      "doneConflicts": "{0} conflict copies kept",
-      "doneDeferred": "{0} waiting until closed",
+      "doneConflicts": "conflict copies {0}",
+      "doneDeferred": "waiting until closed {0}",
       "listSeparator": ", "
     },
     "ko": {
@@ -591,8 +591,8 @@
       "secretNutstore": "App password",
       "doneUploaded": "uploaded {0}",
       "doneDownloaded": "downloaded {0}",
-      "doneConflicts": "{0} conflict copies kept",
-      "doneDeferred": "{0} waiting until closed",
+      "doneConflicts": "conflict copies {0}",
+      "doneDeferred": "waiting until closed {0}",
       "listSeparator": ", "
     },
     "es": {
@@ -699,8 +699,8 @@
       "secretNutstore": "App password",
       "doneUploaded": "uploaded {0}",
       "doneDownloaded": "downloaded {0}",
-      "doneConflicts": "{0} conflict copies kept",
-      "doneDeferred": "{0} waiting until closed",
+      "doneConflicts": "conflict copies {0}",
+      "doneDeferred": "waiting until closed {0}",
       "listSeparator": ", "
     },
     "fr": {
@@ -807,8 +807,8 @@
       "secretNutstore": "App password",
       "doneUploaded": "uploaded {0}",
       "doneDownloaded": "downloaded {0}",
-      "doneConflicts": "{0} conflict copies kept",
-      "doneDeferred": "{0} waiting until closed",
+      "doneConflicts": "conflict copies {0}",
+      "doneDeferred": "waiting until closed {0}",
       "listSeparator": ", "
     },
     "de": {
@@ -915,8 +915,8 @@
       "secretNutstore": "App password",
       "doneUploaded": "uploaded {0}",
       "doneDownloaded": "downloaded {0}",
-      "doneConflicts": "{0} conflict copies kept",
-      "doneDeferred": "{0} waiting until closed",
+      "doneConflicts": "conflict copies {0}",
+      "doneDeferred": "waiting until closed {0}",
       "listSeparator": ", "
     },
     "ru": {
@@ -1023,8 +1023,8 @@
       "secretNutstore": "App password",
       "doneUploaded": "uploaded {0}",
       "doneDownloaded": "downloaded {0}",
-      "doneConflicts": "{0} conflict copies kept",
-      "doneDeferred": "{0} waiting until closed",
+      "doneConflicts": "conflict copies {0}",
+      "doneDeferred": "waiting until closed {0}",
       "listSeparator": ", "
     },
     "pt": {
@@ -1131,8 +1131,8 @@
       "secretNutstore": "App password",
       "doneUploaded": "uploaded {0}",
       "doneDownloaded": "downloaded {0}",
-      "doneConflicts": "{0} conflict copies kept",
-      "doneDeferred": "{0} waiting until closed",
+      "doneConflicts": "conflict copies {0}",
+      "doneDeferred": "waiting until closed {0}",
       "listSeparator": ", "
     }
   }
