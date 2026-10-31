@@ -164,7 +164,7 @@ async function open(
   await expect(page.locator(".sidebar .tree-root-label")).toHaveText("notes");
   await emit(page, "menu-plugin-command", `${manifest.id}.open`);
   const panel = page.frameLocator(".plugin-webview-frame");
-  await expect(panel.locator("#provider")).toBeEnabled();
+  await expect(panel.locator("[data-provider=s3]")).toBeEnabled();
   return panel;
 }
 async function configure(
@@ -173,7 +173,7 @@ async function configure(
   password = syncPassword,
 ) {
   const panel = page.frameLocator(".plugin-webview-frame");
-  await panel.locator("#provider").selectOption(provider);
+  await panel.locator(`[data-provider=${provider}]`).click();
   if (provider !== "nutstore")
     await panel.locator("#endpoint").fill("https://fixture.invalid/dav");
   if (provider === "s3") await panel.locator("#bucket").fill("test-bucket");
@@ -192,7 +192,7 @@ async function sync(page: Page) {
   const panel = page.frameLocator(".plugin-webview-frame");
   await panel.locator("#sync").click();
   await expect(panel.locator("#status")).toContainText(
-    /Uploaded|No changes|上传|所有文件已同步/,
+    /Synced|No changes|同步完成|所有文件已同步/,
   );
   await expect(panel.locator("#sync")).toBeEnabled();
 }
@@ -304,7 +304,7 @@ test("configuration errors preserve input and Chinese UI fits narrow and dark vi
     { "/work/notes/note.md": "# 示例" },
     "zh",
   );
-  await panel.locator("#provider").selectOption("nutstore");
+  await panel.locator("[data-provider=nutstore]").click();
   await expect(panel.locator("#endpoint")).toHaveValue(
     "https://dav.jianguoyun.com/dav",
   );
@@ -349,7 +349,7 @@ test("automatic sync runs on its configured interval and Enter saves through the
   await panel.locator("#interval").press("Enter");
   await expect(panel.locator("#sync")).toBeEnabled();
   await page.clock.fastForward(5 * 60_000 + 10);
-  await expect(panel.locator("#status")).toContainText("Uploaded 1");
+  await expect(panel.locator("#status")).toContainText("uploaded 1");
   expect(
     [...remote.files.keys()].some((key) => key.endsWith("/v2/head.bin")),
   ).toBe(true);
@@ -439,7 +439,7 @@ test("password confirmation errors retain input and an old plaintext directory i
 }) => {
   const remote = new Remote();
   const panel = await open(page, remote, { "/work/notes/note.md": "private" });
-  await panel.locator("#provider").selectOption("webdav");
+  await panel.locator("[data-provider=webdav]").click();
   await panel.locator("#endpoint").fill("https://fixture.invalid/dav");
   await panel.locator("#account").fill("fixture-account");
   await panel.locator("#secret").fill("fixture-secret");
@@ -461,12 +461,10 @@ test("password confirmation errors retain input and an old plaintext directory i
       files: {},
     }),
   );
-  remote.files.set("/dav/textus/my-workspace/v1/head.json", old);
+  remote.files.set("/dav/textus/notes/v1/head.json", old);
   await panel.locator("#sync").click();
   await expect(panel.locator("#status")).toContainText(
     "contains unencrypted v0.1 data",
   );
-  expect([...remote.files]).toEqual([
-    ["/dav/textus/my-workspace/v1/head.json", old],
-  ]);
+  expect([...remote.files]).toEqual([["/dav/textus/notes/v1/head.json", old]]);
 });

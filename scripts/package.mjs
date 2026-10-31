@@ -10,6 +10,7 @@ const files = [
   "panel.html",
   "panel.css",
   "textus-plugin.json",
+  "icon.svg",
   "README.md",
   "README.zh.md",
   "LICENSE",

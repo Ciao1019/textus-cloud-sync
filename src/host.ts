@@ -227,19 +227,20 @@ class Controller {
       }
       this.state.result = result;
       this.state.lastRun = at;
-      this.message(
-        result.uploaded ||
-          result.downloaded ||
-          result.conflicts.length ||
-          result.deferred.length
-          ? "done"
-          : "unchanged",
-        false,
-        result.uploaded,
-        result.downloaded,
-        result.conflicts.length,
-        result.deferred.length,
-      );
+      // Only what happened: "uploaded 2, 1 conflict copy".
+      const parts = (
+        [
+          ["doneUploaded", result.uploaded],
+          ["doneDownloaded", result.downloaded],
+          ["doneConflicts", result.conflicts.length],
+          ["doneDeferred", result.deferred.length],
+        ] as const
+      )
+        .filter(([, n]) => n > 0)
+        .map(([key, n]) => this.t(key, n));
+      if (parts.length)
+        this.message("done", false, parts.join(this.t("listSeparator")));
+      else this.message("unchanged");
     } catch (error) {
       this.fail(error);
     } finally {

@@ -12,6 +12,11 @@
     "sync-password",
     "confirm-password"
   ];
+  var DEFAULT_PREFIX = "textus/my-workspace";
+  function folderPrefix(root2) {
+    const name = (root2.split(/[\\/]/).filter(Boolean).pop() ?? "").replace(/[\x00-\x1f\x7f\\:*?"<>|]/g, "-").replace(/[. ]+$/, "");
+    return name ? `textus/${name}` : DEFAULT_PREFIX;
+  }
   var initialized = false;
   var dirty = false;
   var root = null;
@@ -21,12 +26,34 @@
   for (const item of document.querySelectorAll("[data-t]"))
     item.textContent = api.t(item.dataset.t);
   document.querySelector("section.sync-status")?.setAttribute("aria-label", api.t("name"));
+  var signIn = {
+    s3: ["accountS3", "secretS3"],
+    webdav: ["accountDav", "secretDav"],
+    nutstore: ["accountNutstore", "secretNutstore"]
+  };
+  var providerTabs = [
+    ...document.querySelectorAll("[data-provider]")
+  ];
+  for (const tab of providerTabs)
+    tab.onclick = () => {
+      if (input("provider").value === tab.dataset.provider) return;
+      input("provider").value = tab.dataset.provider;
+      input("endpoint").value = "";
+      for (const id of secretFields) input(id).value = "";
+      dirty = true;
+      toggles();
+    };
   function toggles() {
     const provider = input("provider").value;
-    element("s3-fields").hidden = provider !== "s3";
-    element("token-field").hidden = provider !== "s3";
+    for (const tab of providerTabs)
+      tab.setAttribute("aria-checked", String(tab.dataset.provider === provider));
+    element("bucket-field").hidden = provider !== "s3";
+    element("s3-more").hidden = provider !== "s3";
+    element("endpoint-field").hidden = provider === "nutstore";
     element("nutstore-help").hidden = provider !== "nutstore";
-    input("endpoint").readOnly = provider === "nutstore";
+    const [account, secret] = signIn[provider] ?? signIn.s3;
+    element("account-label").textContent = api.t(account);
+    element("secret-label").textContent = api.t(secret);
     input("endpoint").required = provider !== "s3";
     if (provider === "nutstore")
       input("endpoint").value = "https://dav.jianguoyun.com/dav";
@@ -55,11 +82,6 @@
   });
   element("connection").addEventListener("change", () => {
     dirty = true;
-    toggles();
-  });
-  input("provider").addEventListener("change", () => {
-    input("endpoint").value = "";
-    for (const id of secretFields) input(id).value = "";
     toggles();
   });
   function save() {
@@ -106,7 +128,7 @@
     for (const key of ["conflicts", "deferred"]) {
       const entries = result?.[key];
       if (!entries?.length) continue;
-      const title = document.createElement("h2");
+      const title = document.createElement("h3");
       title.textContent = api.t(key);
       const list = document.createElement("ul");
       for (const path of entries) {
@@ -131,12 +153,13 @@
     configured = m.configured;
     if (!initialized || root !== m.root) {
       if (root !== m.root) for (const id of secretFields) input(id).value = "";
-      fill(m.config);
+      fill(
+        !m.configured && m.root && m.config.prefix === DEFAULT_PREFIX ? { ...m.config, prefix: folderPrefix(m.root) } : m.config
+      );
       initialized = true;
       dirty = false;
     }
     root = m.root;
-    element("root").textContent = root ?? "";
     element("status").textContent = m.message || api.t("loading");
     element("status").dataset.error = String(m.error);
     element("fields").disabled = busy || !root;

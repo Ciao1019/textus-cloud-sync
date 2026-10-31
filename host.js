@@ -214,7 +214,8 @@ function plan(local, remote, base) {
 function conflictPath(path, hash3) {
   const safe = path.replace(/^\.textus\//, "Textus project/");
   const dot = safe.lastIndexOf(".");
-  return `Sync conflicts/${safe.slice(0, dot)}.remote-${hash3.slice(0, 16)}${safe.slice(dot)}`;
+  const end = dot > safe.lastIndexOf("/") + 1 ? dot : safe.length;
+  return `Sync conflicts/${safe.slice(0, end)} (${hash3.slice(0, 8)})${safe.slice(end)}`;
 }
 
 // src/engine.ts
@@ -1516,14 +1517,15 @@ var Controller = class {
       }
       this.state.result = result;
       this.state.lastRun = at;
-      this.message(
-        result.uploaded || result.downloaded || result.conflicts.length || result.deferred.length ? "done" : "unchanged",
-        false,
-        result.uploaded,
-        result.downloaded,
-        result.conflicts.length,
-        result.deferred.length
-      );
+      const parts = [
+        ["doneUploaded", result.uploaded],
+        ["doneDownloaded", result.downloaded],
+        ["doneConflicts", result.conflicts.length],
+        ["doneDeferred", result.deferred.length]
+      ].filter(([, n]) => n > 0).map(([key2, n]) => this.t(key2, n));
+      if (parts.length)
+        this.message("done", false, parts.join(this.t("listSeparator")));
+      else this.message("unchanged");
     } catch (error) {
       this.fail(error);
     } finally {
