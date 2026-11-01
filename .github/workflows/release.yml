@@ -1,0 +1,42 @@
+name: release
+
+# Publishes the plugin when a version tag is pushed (v0.3.0, v0.4.0...):
+# checks it, packages the tagged runtime files and attaches the zip and its
+# SHA-256 to a GitHub release, which the Textus plugin listing reads.
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Check the version
+        run: |
+          set -euo pipefail
+          version=$(jq -r .version textus-plugin.json)
+          if [ "v$version" != "$GITHUB_REF_NAME" ]; then
+            echo "::error::The tag is $GITHUB_REF_NAME but textus-plugin.json says $version."
+            exit 1
+          fi
+      - run: npm run check
+      - name: Package
+        run: node scripts/package.mjs --verify-tag | tee package.log
+      - name: Release
+        run: |
+          set -euo pipefail
+          zip=$(ls dist/*.zip)
+          gh release create "$GITHUB_REF_NAME" "$zip" \
+            --title "Cloud Sync ${GITHUB_REF_NAME#v}" \
+            --notes "SHA-256: $(sha256sum "$zip" | cut -d' ' -f1)"

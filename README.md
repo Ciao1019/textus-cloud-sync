@@ -193,11 +193,13 @@ produces a self-contained plugin folder and installable ZIP in `dist/`.
 Commit those runtime files alongside changes to `src/`, `ui/` or `locales.json`.
 `npm run check` recompiles in memory and fails if the committed runtime is stale.
 
-Release packaging has **no compilation step**: after committing and tagging
-`v0.2.0`, run `npm run package -- --verify-tag`. It compares all nine packaged
-files against the Git tag byte for byte and copies them into a deterministic ZIP.
-Publish that ZIP as `ciao1019.cloud-sync-<version>.zip`; never replace a published asset
-or move its tag. Bundled `aws4fetch` 1.0.20 source and licensing are recorded in
+Release packaging has **no compilation step**. To release, bump the version in
+`package.json` and `textus-plugin.json`, commit, then push a tag such as
+`git tag v0.3.0 && git push origin v0.3.0`. The release workflow runs
+`npm run check`, packages with `npm run package -- --verify-tag` (which compares
+every packaged file against the tag byte for byte into a deterministic ZIP) and
+publishes `ciao1019.cloud-sync-<version>.zip` with its SHA-256 as a GitHub release.
+Never replace a published asset or move its tag. Bundled `aws4fetch` 1.0.20 source and licensing are recorded in
 `THIRD_PARTY_NOTICES.md`.
 
 The [validation report](https://github.com/Ciao1019/textus-cloud-sync/blob/v0.2.0/docs/validation/README.md)
